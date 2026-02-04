@@ -1,377 +1,324 @@
-<!doctype html>
-<html lang="hi">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>All Image Tools LJ — Superfast & Colorful</title>
-
-<meta name="description" content="Free online image tools: Compress, Resize, Image to PDF, JPG to PNG. 100% browser-side & privacy safe.">
-<meta name="theme-color" content="#6f42c1">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Image Tools LJ</title>
+<meta name="description" content="All Image Tools LJ - Fast, Free, Privacy Safe Online Image Tools">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.18/dist/browser-image-compression.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
 <style>
 :root{
-  --bg:#f4f7ff;
-  --card:#ffffff;
-  --text:#222;
-  --muted:#6c757d;
+  --radius:20px;
 }
-
-/* ===== GLOBAL ===== */
 body{
-  background:linear-gradient(135deg,#eef2ff,#fdfbff);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  color:var(--text);
-  padding-bottom:60px;
+  background:linear-gradient(180deg,#f2f6ff,#ffffff);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
-
+.container{
+  max-width:1400px;
+}
+header{
+  background:linear-gradient(135deg,#6f42c1,#0d6efd,#20c997);
+  color:#fff;
+  border-radius:30px;
+  padding:40px;
+  margin:30px auto;
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+header img{
+  width:90px;
+  height:90px;
+  border-radius:20px;
+}
+header h1{
+  font-size:3rem;
+  font-weight:900;
+}
+header p{
+  font-size:1.2rem;
+  opacity:.9;
+}
 .tool-card{
-  border-radius:18px;
-  background:var(--card);
-  box-shadow:0 12px 28px rgba(0,0,0,0.08);
-  transition:.25s;
+  background:#fff;
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+  transition:.3s;
 }
 .tool-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 38px rgba(0,0,0,0.12);
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px rgba(0,0,0,.2);
 }
-
-.tool-header{
+.tool-title{
+  font-size:1.6rem;
+  font-weight:800;
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-bottom:6px;
+  gap:15px;
 }
-
-.tool-header h5{
-  font-weight:900;
-  margin:0;
-  font-size:1.25rem;
+.tool-title i{
+  font-size:2.4rem;
 }
-
-.mini-logo{
-  width:44px;height:44px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#f8f9ff;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
-}
-
-.small-muted{color:var(--muted);font-size:.9rem}
-
-/* ===== BUTTONS ===== */
-.btn-main{
+.btn-tool{
+  padding:14px 24px;
+  font-size:1.1rem;
+  font-weight:700;
+  border-radius:14px;
   border:none;
-  font-weight:600;
   color:#fff;
 }
-.btn-main:hover{opacity:.9;color:#fff}
-
-.btn-compress{background:linear-gradient(135deg,#0d6efd,#6610f2)}
-.btn-resize{background:linear-gradient(135deg,#20c997,#0dcaf0)}
-.btn-pdf{background:linear-gradient(135deg,#ff6b6b,#fd7e14)}
-.btn-convert{background:linear-gradient(135deg,#fbc531,#e84393)}
-
-.download-btn{
-  background:linear-gradient(135deg,#198754,#20c997);
-  color:#fff !important;
-  font-weight:600;
-  border-radius:12px;
-  padding:.45rem .9rem;
-  text-decoration:none;
+.preview{
+  max-width:100%;
+  max-height:220px;
+  border-radius:15px;
+  margin-top:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-.download-btn:hover{opacity:.9}
-
-/* ===== FILE INPUT ===== */
-.file-btn{
-  border:1px dashed #aaa;
-  border-radius:999px;
-  padding:.35rem .75rem;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:.4rem;
-  font-size:.85rem;
-}
-.file-btn:hover{border-style:solid}
-
-.thumb{
-  max-height:50px;
-  border-radius:6px;
-}
-
-/* ===== HEADER ===== */
-.header-box{
-  max-width:1100px;
-  margin:18px auto;
+.privacy{
+  margin:60px auto 20px;
+  padding:25px;
   background:#fff;
-  padding:14px 18px;
-  border-radius:18px;
-  display:flex;
-  gap:14px;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 12px 26px rgba(0,0,0,.08);
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  font-weight:700;
 }
-.brand-title{
-  font-weight:900;
-  font-size:1.8rem;
-  background:linear-gradient(90deg,#0d6efd,#6f42c1,#ff6b6b);
-  -webkit-background-clip:text;
-  color:transparent;
+.creator{
+  margin:50px auto;
+  padding:40px;
+  background:linear-gradient(135deg,#000428,#004e92);
+  color:#fff;
+  border-radius:30px;
+  text-align:center;
 }
-.brand-sub{font-size:.95rem;color:#666;font-weight:600}
-
-@media(max-width:700px){
-  .header-box{flex-direction:column;text-align:center}
-  .brand-title{font-size:1.4rem}
+.creator img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 </style>
 </head>
-
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header-box">
-  <div class="d-flex align-items-center gap-3">
-    <img src="icons/icon-192.png" alt="logo" style="width:64px;height:64px;border-radius:14px">
-    <div>
-      <div class="brand-title">All Image Tools LJ</div>
-      <div class="brand-sub">Fast • Free • Privacy Safe</div>
+<div class="container">
+
+<header class="d-flex flex-wrap align-items-center gap-4">
+  <img src="icons/icon-192.png">
+  <div>
+    <h1>All Image Tools LJ</h1>
+    <p>Fast • Free • Privacy Safe</p>
+  </div>
+</header>
+
+<div class="row g-4">
+
+<!-- IMAGE COMPRESSOR -->
+<div class="col-md-6">
+<div class="tool-card">
+  <div class="tool-title text-primary">
+    <i class="bi bi-speedometer2"></i> Image Compressor
+  </div>
+  <input type="file" id="compFile" class="form-control mt-3" accept="image/*">
+  <img id="compPreview" class="preview d-none">
+  <label class="mt-3 fw-bold">Quality</label>
+  <input type="range" id="compQuality" class="form-range" min="0.1" max="1" step="0.01" value="0.8">
+  <div class="row g-2">
+    <div class="col">
+      <input type="number" id="compMaxW" class="form-control" placeholder="Max Width">
+    </div>
+    <div class="col">
+      <input type="number" id="compTarget" class="form-control" placeholder="Target KB">
     </div>
   </div>
+  <select id="compFormat" class="form-select mt-2">
+    <option value="image/jpeg">JPG</option>
+    <option value="image/png">PNG</option>
+  </select>
+  <button class="btn-tool w-100 mt-3" style="background:linear-gradient(135deg,#0d6efd,#6f42c1)" onclick="compressImage()">
+    <i class="bi bi-file-zip"></i> Compress Image
+  </button>
+  <a id="compDownload" class="btn btn-success w-100 mt-2 d-none">Download</a>
+  <div id="compStatus" class="mt-2 fw-bold">Ready</div>
+</div>
 </div>
 
-<main class="container" style="max-width:1100px">
-
-<div class="row g-3">
-
-<!-- COMPRESS -->
+<!-- IMAGE RESIZE -->
 <div class="col-md-6">
-  <div class="tool-card p-3">
-    <div class="tool-header">
-      <div class="mini-logo"><i class="bi bi-filter-circle text-primary fs-4"></i></div>
-      <h5>Image Compressor</h5>
-    </div>
-    <p class="small-muted">Reduce image size without quality loss.</p>
-    <input type="file" id="compFile" accept="image/*" hidden>
-    <label class="file-btn" for="compFile"><i class="bi bi-image"></i> Choose image</label>
-    <div id="compPreview" class="mt-2"></div>
-    <button class="btn btn-main btn-compress mt-2 w-100" id="compressBtn">
-      <i class="bi bi-lightning"></i> Compress
-    </button>
+<div class="tool-card">
+  <div class="tool-title text-success">
+    <i class="bi bi-arrows-angle-expand"></i> Image Resize
   </div>
+  <input type="file" id="resizeFile" class="form-control mt-3" accept="image/*">
+  <img id="resizePreview" class="preview d-none">
+  <div class="row g-2 mt-2">
+    <div class="col"><input id="resizeW" class="form-control" placeholder="Width"></div>
+    <div class="col"><input id="resizeH" class="form-control" placeholder="Height"></div>
+  </div>
+  <div class="form-check form-switch mt-2">
+    <input class="form-check-input" type="checkbox" id="keepRatio" checked>
+    <label class="form-check-label">Maintain Aspect Ratio</label>
+  </div>
+  <button class="btn-tool w-100 mt-3" style="background:linear-gradient(135deg,#20c997,#0dcaf0)" onclick="resizeImage()">
+    <i class="bi bi-aspect-ratio"></i> Resize Image
+  </button>
+  <a id="resizeDownload" class="btn btn-success w-100 mt-2 d-none">Download</a>
 </div>
-
-<!-- RESIZE -->
-<div class="col-md-6">
-  <div class="tool-card p-3">
-    <div class="tool-header">
-      <div class="mini-logo"><i class="bi bi-arrows-angle-expand text-success fs-4"></i></div>
-      <h5>Resize Image</h5>
-    </div>
-    <p class="small-muted">Change image dimensions easily.</p>
-    <input type="file" hidden>
-    <button class="btn btn-main btn-resize w-100">
-      <i class="bi bi-arrows"></i> Resize Image
-    </button>
-  </div>
 </div>
 
 <!-- IMAGE TO PDF -->
 <div class="col-md-6">
-  <div class="tool-card p-3">
-    <div class="tool-header">
-      <div class="mini-logo"><i class="bi bi-file-earmark-pdf text-danger fs-4"></i></div>
-      <h5>Image → PDF</h5>
-    </div>
-    <p class="small-muted">Convert multiple images into one PDF.</p>
-    <input type="file" hidden multiple>
-    <button class="btn btn-main btn-pdf w-100">
-      <i class="bi bi-file-arrow-down"></i> Create PDF
-    </button>
+<div class="tool-card">
+  <div class="tool-title text-danger">
+    <i class="bi bi-file-earmark-pdf"></i> Image to PDF
   </div>
+  <input type="file" id="pdfFiles" class="form-control mt-3" accept="image/*" multiple>
+  <select id="pdfSize" class="form-select mt-2">
+    <option value="a4">A4</option>
+    <option value="letter">Letter</option>
+  </select>
+  <select id="pdfOrientation" class="form-select mt-2">
+    <option value="portrait">Portrait</option>
+    <option value="landscape">Landscape</option>
+  </select>
+  <button class="btn-tool w-100 mt-3" style="background:linear-gradient(135deg,#dc3545,#fd7e14)" onclick="imagesToPDF()">
+    <i class="bi bi-file-earmark-arrow-down"></i> Create PDF
+  </button>
+  <a id="pdfDownload" class="btn btn-success w-100 mt-2 d-none">Download PDF</a>
+  <div id="pdfStatus" class="fw-bold mt-2">Ready</div>
+</div>
 </div>
 
 <!-- JPG PNG -->
 <div class="col-md-6">
-  <div class="tool-card p-3">
-    <div class="tool-header">
-      <div class="mini-logo"><i class="bi bi-arrow-left-right text-warning fs-4"></i></div>
-      <h5>JPG ↔ PNG</h5>
-    </div>
-    <p class="small-muted">Convert image formats instantly.</p>
-    <button class="btn btn-main btn-convert w-100">
-      <i class="bi bi-repeat"></i> Convert Image
-    </button>
+<div class="tool-card">
+  <div class="tool-title text-warning">
+    <i class="bi bi-arrow-left-right"></i> JPG ↔ PNG
   </div>
-</div>
-
-</div>
-
-<!-- FOOTER -->
-<footer class="text-center mt-4 small-muted">
-  <p>All tools work locally in your browser. Your images are never uploaded.</p>
-</footer>
-
-<!-- CREATOR -->
-<div class="text-center mt-3">
-  <img src="icons/Laxman.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover">
-  <p class="mt-2 fw-semibold">Created by LJ Pareek 😎</p>
-</div>
-
-</main>
-</body>
-</html> value="no" selected>No</option>
-          <option value="yes">Yes (basic)</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Action buttons -->
-    <div class="action-group d-flex align-items-center gap-2 mt-2">
-      <button id="compressBtn" class="btn btn-tool-main">
-        <i class="bi bi-filter-circle"></i> Compress
-      </button>
-      <a id="compDownload" class="btn btn-tool-download"
-         style="display:none">
-        <i class="bi bi-download"></i> Download
-      </a>
-      <span id="compStatus"
-            class="small-muted ms-auto text-muted">Ready</span>
-    </div>
+  <input type="file" id="convFile" class="form-control mt-3" accept="image/*">
+  <img id="convPreview" class="preview d-none">
+  <label class="mt-2">JPG Quality</label>
+  <input type="range" id="convQuality" class="form-range" min="0.1" max="1" step="0.01" value="0.9">
+  <input type="color" id="bgColor" class="form-control mt-2" value="#ffffff">
+  <div class="d-flex gap-2 mt-3">
+    <button class="btn-tool w-50" style="background:linear-gradient(135deg,#ffc107,#fd7e14)" onclick="jpgToPng()">JPG → PNG</button>
+    <button class="btn-tool w-50" style="background:linear-gradient(135deg,#e83e8c,#ffc107)" onclick="pngToJpg()">PNG → JPG</button>
   </div>
+  <a id="convDownload" class="btn btn-success w-100 mt-2 d-none">Download</a>
+</div>
 </div>
 
-<!-- ====== CSS: colorful buttons etc. ====== -->
-<style>
-  .btn-tool-main {
-    background: linear-gradient(135deg, #0d6efd, #6610f2);
-    color: #fff;
-    border: none;
-    font-weight: 500;
-    padding-inline: 1.1rem;
-  }
-  .btn-tool-main:hover {
-    opacity: 0.9;
-    color: #fff;
-  }
-  .btn-tool-download {
-    background: linear-gradient(135deg, #20c997, #0dcaf0);
-    color: #fff !important;
-    border: none;
-    font-weight: 500;
-    padding-inline: 1.1rem;
-    text-decoration: none;
-  }
-  .btn-tool-download:hover {
-    opacity: 0.9;
-    color: #fff !important;
-    text-decoration: none;
-  }
-  .file-btn {
-    cursor: pointer;
-    padding: 0.35rem 0.75rem;
-    border-radius: 999px;
-    border: 1px dashed #6c757d;
-    font-size: 0.85rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-  .file-btn:hover {
-    border-style: solid;
-  }
-  #compPreview img {
-    max-height: 40px;
-    border-radius: 4px;
-  }
-</style>
+</div>
 
-<!-- ====== JS: compressor logic (no "not defined" error) ====== -->
+<div class="privacy text-center">
+All tools work locally in your browser.<br>
+Your images are never uploaded to any server.
+</div>
+
+<div class="creator">
+<img src="icons/Laxman.jpg">
+<h4 class="mt-3">Created by LJ Pareek 😎</h4>
+</div>
+
+</div>
+
 <script>
-  (function () {
-    let originalFile = null;
-    let originalImage = null;
-    let downloadUrl = null;
+let compFile;
+document.getElementById('compFile').onchange=e=>{
+ compFile=e.target.files[0];
+ let img=document.getElementById('compPreview');
+ img.src=URL.createObjectURL(compFile);img.classList.remove('d-none');
+};
+async function compressImage(){
+ if(!compFile)return;
+ document.getElementById('compStatus').innerText="Processing...";
+ let quality=parseFloat(compQuality.value);
+ let maxW=parseInt(compMaxW.value)||undefined;
+ let options={maxWidthOrHeight:maxW,initialQuality:quality,useWebWorker:true};
+ let blob=await imageCompression(compFile,options);
+ let url=URL.createObjectURL(blob);
+ let a=compDownload;
+ a.href=url;a.download="compressed.jpg";a.classList.remove('d-none');
+ document.getElementById('compStatus').innerText="Done";
+}
+function resizeImage(){
+ let f=resizeFile.files[0];if(!f)return;
+ let img=new Image();
+ img.onload=()=>{
+ let w=resizeW.value||img.width;
+ let h=resizeH.value||img.height;
+ if(keepRatio.checked){
+   if(resizeW.value&&!resizeH.value)h=img.height*(w/img.width);
+   if(resizeH.value&&!resizeW.value)w=img.width*(h/img.height);
+ }
+ let c=document.createElement('canvas');c.width=w;c.height=h;
+ c.getContext('2d').drawImage(img,0,0,w,h);
+ c.toBlob(b=>{
+ let a=resizeDownload;a.href=URL.createObjectURL(b);a.download="resized.jpg";a.classList.remove('d-none');
+ });
+ };
+ img.src=URL.createObjectURL(f);
+ resizePreview.src=img.src;resizePreview.classList.remove('d-none');
+}
+async function imagesToPDF(){
+ const files=[...pdfFiles.files];if(!files.length)return;
+ pdfStatus.innerText="Processing...";
+ const {jsPDF}=window.jspdf;
+ let pdf=new jsPDF({orientation:pdfOrientation.value,format:pdfSize.value});
+ for(let i=0;i<files.length;i++){
+  let img=await new Promise(r=>{let im=new Image();im.onload=()=>r(im);im.src=URL.createObjectURL(files[i]);});
+  let w=pdf.internal.pageSize.getWidth();
+  let h=pdf.internal.pageSize.getHeight();
+  pdf.addImage(img,'JPEG',0,0,w,h);
+  if(i<files.length-1)pdf.addPage();
+ }
+ let blob=pdf.output('blob');
+ pdfDownload.href=URL.createObjectURL(blob);
+ pdfDownload.download="images.pdf";
+ pdfDownload.classList.remove('d-none');
+ pdfStatus.innerText="Done";
+}
+function jpgToPng(){
+ let f=convFile.files[0];if(!f)return;
+ let img=new Image();
+ img.onload=()=>{
+ let c=document.createElement('canvas');
+ c.width=img.width;c.height=img.height;
+ c.getContext('2d').drawImage(img,0,0);
+ c.toBlob(b=>{
+  convDownload.href=URL.createObjectURL(b);
+  convDownload.download="image.png";
+  convDownload.classList.remove('d-none');
+ });
+ };
+ img.src=URL.createObjectURL(f);
+ convPreview.src=img.src;convPreview.classList.remove('d-none');
+}
+function pngToJpg(){
+ let f=convFile.files[0];if(!f)return;
+ let img=new Image();
+ img.onload=()=>{
+ let c=document.createElement('canvas');
+ c.width=img.width;c.height=img.height;
+ let ctx=c.getContext('2d');
+ ctx.fillStyle=bgColor.value;ctx.fillRect(0,0,c.width,c.height);
+ ctx.drawImage(img,0,0);
+ c.toBlob(b=>{
+  convDownload.href=URL.createObjectURL(b);
+  convDownload.download="image.jpg";
+  convDownload.classList.remove('d-none');
+ },'image/jpeg',parseFloat(convQuality.value));
+ };
+ img.src=URL.createObjectURL(f);
+}
+</script>
 
-    const fileInput     = document.getElementById('compFileBtn');
-    const previewEl     = document.getElementById('compPreview');
-    const clearBtn      = document.getElementById('compClear');
-    const qualityRange  = document.getElementById('compQuality');
-    const qualityLabel  = document.getElementById('compQualityLabel');
-    const maxEdgeInput  = document.getElementById('compMaxEdge');
-    const targetKBInput = document.getElementById('compTargetKB');
-    const outFormatSel  = document.getElementById('compOutFormat');
-    const compressBtn   = document.getElementById('compressBtn');
-    const downloadLink  = document.getElementById('compDownload');
-    const statusEl      = document.getElementById('compStatus');
-
-    // ---------- helpers ----------
-    function setStatus(msg) {
-      if (statusEl) statusEl.textContent = msg;
-    }
-
-    function resetDownload() {
-      if (downloadUrl) {
-        URL.revokeObjectURL(downloadUrl);
-        downloadUrl = null;
-      }
-      downloadLink.style.display = 'none';
-    }
-
-    function showPreview(file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.alt = 'Preview';
-        previewEl.innerHTML = '';
-        previewEl.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-      clearBtn.style.display = 'inline-block';
-    }
-
-    function loadImage(file) {
-      return new Promise(function (resolve, reject) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = new Image();
-          img.onload = function () { resolve(img); };
-          img.onerror = reject;
-          img.src = e.target.result;
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function drawToCanvas(img, maxEdge) {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      let w = img.width;
-      let h = img.height;
-
-      if (maxEdge && maxEdge > 0) {
-        const longer = Math.max(w, h);
-        if (longer > maxEdge) {
-          const scale = maxEdge / longer;
-          w = Math.round(w * scale);
-          h = Math.round(h * scale);
-        }
-      }
-
-      canvas.width = w;
-      canvas.height = h;
-      ctx.drawImage(img, 0, 0, w, h);
-
-      return canvas;
+</body>
+</html>vas;
     }
 
     function getMime(format) {
