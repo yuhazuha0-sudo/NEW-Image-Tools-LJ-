@@ -1,220 +1,232 @@
 <!doctype html>
-
 <html lang="hi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>All Image Tools LJ — Superfast Tools</title>  <meta name="description" content="Selected popular image tools: Compressor, Resize, Image → PDF, JPG → PNG. Privacy-first — client-side processing." />
-  <meta name="theme-color" content="#0d6efd">  <link rel="canonical" href="https://yuhazuha0-sudo.github.io/All-Image-Tools-LJ/" />  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">  <style>
-    :root{
-      --bg:#f6f9ff; --card:#fff; --text:#222; --muted:#6c757d;
-      --brand:#0d6efd;
-      --accent: linear-gradient(90deg,#ff6b6b,#ffb86b);
-      --card-radius:.8rem;
-    }
-    body{
-      background:var(--bg); color:var(--text); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      padding: 1.5rem 0 3.5rem;
-    }
-    .tool-card{ border-radius:var(--card-radius); background:var(--card); box-shadow:0 8px 22px rgba(13,110,253,0.06); }
-    header { max-width:1100px; margin:0 auto 18px; padding: 10px; }
-    /* Header card */
-    .header-inner {
-      display:flex; align-items:center; gap:14px; justify-content:space-between;
-      background:rgba(255,255,255,0.95); padding:12px 16px; border-radius:14px; box-shadow:0 8px 24px rgba(13,110,253,0.06);
-    }
-    .brand-row{ display:flex; align-items:center; gap:12px; flex:1; }
-    .tool-logo { width:82px; height:82px; border-radius:12px; object-fit:contain; box-shadow:0 8px 26px rgba(13,110,253,0.06); flex-shrink:0; }
-    .brand-title { font-weight:900; font-size:1.8rem; margin:0; background: linear-gradient(90deg, #0d6efd 0%, #6f42c1 45%, #ff6b6b 100%); -webkit-background-clip:text; color:transparent; }
-    .brand-sub { font-size:0.95rem; color:var(--muted); margin-top:2px; font-weight:600; }
-    .header-actions { display:flex; gap:8px; align-items:center; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Image Tools LJ — Superfast & Colorful</title>
 
-    /* Quick Upload card (new) */
-    .quick-upload { background:#fff; padding:14px; border-radius:12px; box-shadow:0 8px 20px rgba(13,110,253,0.04); margin:0 auto 18px; max-width:1100px; }
-    .quick-upload .big-input { border:2px dashed rgba(13,110,253,0.12); border-radius:10px; padding:16px; text-align:center; cursor:pointer; }
-    .quick-upload img.preview-thumb { max-height:100px; margin:8px; border-radius:8px; display:inline-block; }
+<meta name="description" content="Free online image tools: Compress, Resize, Image to PDF, JPG to PNG. 100% browser-side & privacy safe.">
+<meta name="theme-color" content="#6f42c1">
 
-    /* Tools grid */
-    .tools-wrap { max-width:1100px; margin:0 auto; }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    /* Card header for tools */
-    .tool-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
-    /* Increased tool name size */
-    .tool-header h5 { font-size:1.35rem; margin:0; font-weight:900; display:flex; align-items:center; gap:10px; }
-    .tool-badge { font-size:.85rem; color:var(--muted); margin-left:auto; }
+<style>
+:root{
+  --bg:#f4f7ff;
+  --card:#ffffff;
+  --text:#222;
+  --muted:#6c757d;
+}
 
-    /* Improved file input inside each tool */
-    .tool-file { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
-    .tool-file input[type="file"] { display:none; }
-    .file-btn { padding:.4rem .7rem; border-radius:.5rem; border:1px dashed rgba(13,110,253,0.12); background:#fafafa; cursor:pointer; display:inline-flex; align-items:center; gap:.5rem; }
-    .thumb-preview { max-height:80px; border-radius:8px; display:inline-block; }
+/* ===== GLOBAL ===== */
+body{
+  background:linear-gradient(135deg,#eef2ff,#fdfbff);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  padding-bottom:60px;
+}
 
-    /* Buttons area - keep download link next to action */
-    .action-group { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; }
+.tool-card{
+  border-radius:18px;
+  background:var(--card);
+  box-shadow:0 12px 28px rgba(0,0,0,0.08);
+  transition:.25s;
+}
+.tool-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 38px rgba(0,0,0,0.12);
+}
 
-    /* download link style */
-    .download-link { padding:.35rem .6rem; background:#198754; color:#fff; border-radius:.5rem; text-decoration:none; font-weight:600; display:inline-flex; gap:6px; align-items:center; }
+.tool-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:6px;
+}
 
-    /* small muted text */
-    .small-muted{ color:var(--muted); }
+.tool-header h5{
+  font-weight:900;
+  margin:0;
+  font-size:1.25rem;
+}
 
-    /* tidy spacing inside cards */
-    .card .form-label { margin-bottom:.25rem; font-weight:600; color:#444; }
-    .card .mb-2 { margin-bottom:.6rem !important; }
+.mini-logo{
+  width:44px;height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f8f9ff;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
 
-    /* remove old fixed heights */
-    .card.p-3.tool-card { min-height:0; height:auto; }
+.small-muted{color:var(--muted);font-size:.9rem}
 
-    /* responsive */
-    @media (max-width:680px){
-      .header-inner { flex-direction:column; align-items:center; text-align:center; gap:8px; }
-      .brand-row { justify-content:center; }
-      .brand-title{ font-size:1.3rem; }
-      .tool-logo { width:64px; height:64px; }
-      .tool-header h5 { font-size:1.1rem; }
-    }
+/* ===== BUTTONS ===== */
+.btn-main{
+  border:none;
+  font-weight:600;
+  color:#fff;
+}
+.btn-main:hover{opacity:.9;color:#fff}
 
-    /* small svg logo badge next to each tool name */
-    .mini-logo { width:44px; height:44px; border-radius:8px; background:#fff; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(13,110,253,0.06); flex-shrink:0; }
-  </style></head>
+.btn-compress{background:linear-gradient(135deg,#0d6efd,#6610f2)}
+.btn-resize{background:linear-gradient(135deg,#20c997,#0dcaf0)}
+.btn-pdf{background:linear-gradient(135deg,#ff6b6b,#fd7e14)}
+.btn-convert{background:linear-gradient(135deg,#fbc531,#e84393)}
+
+.download-btn{
+  background:linear-gradient(135deg,#198754,#20c997);
+  color:#fff !important;
+  font-weight:600;
+  border-radius:12px;
+  padding:.45rem .9rem;
+  text-decoration:none;
+}
+.download-btn:hover{opacity:.9}
+
+/* ===== FILE INPUT ===== */
+.file-btn{
+  border:1px dashed #aaa;
+  border-radius:999px;
+  padding:.35rem .75rem;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-size:.85rem;
+}
+.file-btn:hover{border-style:solid}
+
+.thumb{
+  max-height:50px;
+  border-radius:6px;
+}
+
+/* ===== HEADER ===== */
+.header-box{
+  max-width:1100px;
+  margin:18px auto;
+  background:#fff;
+  padding:14px 18px;
+  border-radius:18px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 12px 26px rgba(0,0,0,.08);
+}
+.brand-title{
+  font-weight:900;
+  font-size:1.8rem;
+  background:linear-gradient(90deg,#0d6efd,#6f42c1,#ff6b6b);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.brand-sub{font-size:.95rem;color:#666;font-weight:600}
+
+@media(max-width:700px){
+  .header-box{flex-direction:column;text-align:center}
+  .brand-title{font-size:1.4rem}
+}
+</style>
+</head>
+
 <body>
-  <main class="container"><!-- Header -->
-<header>
-  <div class="header-inner">
-    <div class="brand-row">
-      <img class="tool-logo" alt="All Image Tools LJ" src="/All-Image-Tools-LJ/icons/icon-192.png"
-           onerror="this.onerror=null;this.src='/All-Image-Tools-LJ/icons/icon-512.png?v=2'">
-      <div>
-        <div class="brand-title">All Image Tools LJ</div>
-        <div class="brand-sub">Superfast Tools</div>
-      </div>
-    </div>
 
-    <div class="header-actions">
-      <button id="globalOpenBtn" class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-folder2-open"></i> Open</button>
-      <button id="helpBtn" class="btn btn-outline-secondary btn-sm">Help</button>
+<!-- ===== HEADER ===== -->
+<div class="header-box">
+  <div class="d-flex align-items-center gap-3">
+    <img src="icons/icon-192.png" alt="logo" style="width:64px;height:64px;border-radius:14px">
+    <div>
+      <div class="brand-title">All Image Tools LJ</div>
+      <div class="brand-sub">Fast • Free • Privacy Safe</div>
     </div>
   </div>
-</header>
+</div>
 
-<!-- Quick Upload (replaces old dropzone) -->
-<section class="quick-upload mb-3">
-  <div class="d-flex align-items-center justify-content-between flex-wrap">
-    <div>
-      <h5 style="margin:0 0 .35rem 0;">Quick Upload</h5>
-      <div class="small-muted">Select images here as a quick global fallback. Files added here can be used by each tool.</div>
-    </div>
-    <div>
-      <input id="quickFileInput" type="file" accept="image/*" multiple style="display:none">
-      <div id="quickChooser" class="big-input" role="button" tabindex="0">
-        <i class="bi bi-cloud-arrow-up" style="font-size:1.2rem;color:var(--brand)"></i>
-        <div>Add images (click) or drag & drop here</div>
-      </div>
-    </div>
-  </div>
-  <div id="quickPreview" class="mt-3"></div>
-</section>
+<main class="container" style="max-width:1100px">
 
-<!-- Tools -->
-<section class="tools-wrap">
-  <div class="row g-3">
+<div class="row g-3">
 
-   <!-- 1) Image Compressor -->
+<!-- COMPRESS -->
 <div class="col-md-6">
-  <div class="card p-3 tool-card" id="card-compressor">
-    <div class="tool-header d-flex align-items-center gap-2">
-      <div class="mini-logo" aria-hidden>
-        <!-- SVG logo: compressor -->
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 12h6" stroke="#0d6efd" stroke-width="1.6"
-                stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M15 6l6 6-6 6" stroke="#6f42c1" stroke-width="1.6"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h5 class="mb-0">Image Compressor</h5>
-      <div class="tool-badge ms-auto">Reduce size</div>
+  <div class="tool-card p-3">
+    <div class="tool-header">
+      <div class="mini-logo"><i class="bi bi-filter-circle text-primary fs-4"></i></div>
+      <h5>Image Compressor</h5>
     </div>
+    <p class="small-muted">Reduce image size without quality loss.</p>
+    <input type="file" id="compFile" accept="image/*" hidden>
+    <label class="file-btn" for="compFile"><i class="bi bi-image"></i> Choose image</label>
+    <div id="compPreview" class="mt-2"></div>
+    <button class="btn btn-main btn-compress mt-2 w-100" id="compressBtn">
+      <i class="bi bi-lightning"></i> Compress
+    </button>
+  </div>
+</div>
 
-    <p class="small-muted mb-2">
-      Adjust quality / max edge / target KB. Processing happens in your browser.
-    </p>
-
-    <!-- File input row -->
-    <div class="tool-file d-flex align-items-center gap-2 mb-2">
-      <label class="file-btn" for="compFileBtn">
-        <i class="bi bi-image"></i> Choose image
-      </label>
-      <input id="compFileBtn" type="file" accept="image/*"
-             class="tool-input d-none" data-tool="compressor">
-      <div id="compPreview" class="ms-2 small-muted"></div>
-      <button id="compClear" class="btn btn-sm btn-outline-secondary ms-auto"
-              style="display:none">Clear</button>
+<!-- RESIZE -->
+<div class="col-md-6">
+  <div class="tool-card p-3">
+    <div class="tool-header">
+      <div class="mini-logo"><i class="bi bi-arrows-angle-expand text-success fs-4"></i></div>
+      <h5>Resize Image</h5>
     </div>
+    <p class="small-muted">Change image dimensions easily.</p>
+    <input type="file" hidden>
+    <button class="btn btn-main btn-resize w-100">
+      <i class="bi bi-arrows"></i> Resize Image
+    </button>
+  </div>
+</div>
 
-    <!-- Options panel -->
-    <div class="row g-2 mb-2">
-      <div class="col-6">
-        <label class="form-label">
-          Quality (0.1 - 1.0)
-          <small id="compQualityLabel" class="text-primary">0.8</small>
-        </label>
-        <input id="compQuality" type="range"
-               min="0.1" max="1" step="0.01" value="0.8"
-               class="form-range">
-      </div>
-      <div class="col-6">
-        <label class="form-label">Max long-edge (px)</label>
-        <input id="compMaxEdge" type="number"
-               class="form-control form-control-sm"
-               placeholder="e.g. 1600">
-      </div>
+<!-- IMAGE TO PDF -->
+<div class="col-md-6">
+  <div class="tool-card p-3">
+    <div class="tool-header">
+      <div class="mini-logo"><i class="bi bi-file-earmark-pdf text-danger fs-4"></i></div>
+      <h5>Image → PDF</h5>
     </div>
+    <p class="small-muted">Convert multiple images into one PDF.</p>
+    <input type="file" hidden multiple>
+    <button class="btn btn-main btn-pdf w-100">
+      <i class="bi bi-file-arrow-down"></i> Create PDF
+    </button>
+  </div>
+</div>
 
-    <!-- Extra options: target KB + quick presets -->
-    <div class="row g-2 mb-2">
-      <div class="col-6">
-        <label class="form-label">
-          Target size (KB)
-          <small class="text-muted">(optional)</small>
-        </label>
-        <input id="compTargetKB" type="number"
-               class="form-control form-control-sm"
-               placeholder="e.g. 300">
-      </div>
-      <div class="col-6">
-        <label class="form-label mb-1">Quick quality presets</label>
-        <div class="btn-group w-100 btn-group-sm" role="group">
-          <button type="button" class="btn btn-outline-secondary compPresetBtn"
-                  data-q="0.3">30%</button>
-          <button type="button" class="btn btn-outline-secondary compPresetBtn"
-                  data-q="0.5">50%</button>
-          <button type="button" class="btn btn-outline-secondary compPresetBtn"
-                  data-q="0.7">70%</button>
-          <button type="button" class="btn btn-outline-secondary compPresetBtn"
-                  data-q="0.9">90%</button>
-        </div>
-      </div>
+<!-- JPG PNG -->
+<div class="col-md-6">
+  <div class="tool-card p-3">
+    <div class="tool-header">
+      <div class="mini-logo"><i class="bi bi-arrow-left-right text-warning fs-4"></i></div>
+      <h5>JPG ↔ PNG</h5>
     </div>
+    <p class="small-muted">Convert image formats instantly.</p>
+    <button class="btn btn-main btn-convert w-100">
+      <i class="bi bi-repeat"></i> Convert Image
+    </button>
+  </div>
+</div>
 
-    <!-- Output options -->
-    <div class="row g-2 mb-2">
-      <div class="col-6">
-        <label class="form-label">Output format</label>
-        <select id="compOutFormat"
-                class="form-select form-select-sm">
-          <option value="jpeg">JPEG</option>
-          <option value="png">PNG</option>
-        </select>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Keep metadata</label>
-        <select id="compKeepMeta"
-                class="form-select form-select-sm">
-          <option value="no" selected>No</option>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center mt-4 small-muted">
+  <p>All tools work locally in your browser. Your images are never uploaded.</p>
+</footer>
+
+<!-- CREATOR -->
+<div class="text-center mt-3">
+  <img src="icons/Laxman.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover">
+  <p class="mt-2 fw-semibold">Created by LJ Pareek 😎</p>
+</div>
+
+</main>
+</body>
+</html> value="no" selected>No</option>
           <option value="yes">Yes (basic)</option>
         </select>
       </div>
