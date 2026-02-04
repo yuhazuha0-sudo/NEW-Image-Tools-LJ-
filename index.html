@@ -1,0 +1,979 @@
+<!doctype html>
+
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All Image Tools LJ — Superfast Tools</title>  <meta name="description" content="Selected popular image tools: Compressor, Resize, Image → PDF, JPG → PNG. Privacy-first — client-side processing." />
+  <meta name="theme-color" content="#0d6efd">  <link rel="canonical" href="https://yuhazuha0-sudo.github.io/All-Image-Tools-LJ/" />  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">  <style>
+    :root{
+      --bg:#f6f9ff; --card:#fff; --text:#222; --muted:#6c757d;
+      --brand:#0d6efd;
+      --accent: linear-gradient(90deg,#ff6b6b,#ffb86b);
+      --card-radius:.8rem;
+    }
+    body{
+      background:var(--bg); color:var(--text); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      padding: 1.5rem 0 3.5rem;
+    }
+    .tool-card{ border-radius:var(--card-radius); background:var(--card); box-shadow:0 8px 22px rgba(13,110,253,0.06); }
+    header { max-width:1100px; margin:0 auto 18px; padding: 10px; }
+    /* Header card */
+    .header-inner {
+      display:flex; align-items:center; gap:14px; justify-content:space-between;
+      background:rgba(255,255,255,0.95); padding:12px 16px; border-radius:14px; box-shadow:0 8px 24px rgba(13,110,253,0.06);
+    }
+    .brand-row{ display:flex; align-items:center; gap:12px; flex:1; }
+    .tool-logo { width:82px; height:82px; border-radius:12px; object-fit:contain; box-shadow:0 8px 26px rgba(13,110,253,0.06); flex-shrink:0; }
+    .brand-title { font-weight:900; font-size:1.8rem; margin:0; background: linear-gradient(90deg, #0d6efd 0%, #6f42c1 45%, #ff6b6b 100%); -webkit-background-clip:text; color:transparent; }
+    .brand-sub { font-size:0.95rem; color:var(--muted); margin-top:2px; font-weight:600; }
+    .header-actions { display:flex; gap:8px; align-items:center; }
+
+    /* Quick Upload card (new) */
+    .quick-upload { background:#fff; padding:14px; border-radius:12px; box-shadow:0 8px 20px rgba(13,110,253,0.04); margin:0 auto 18px; max-width:1100px; }
+    .quick-upload .big-input { border:2px dashed rgba(13,110,253,0.12); border-radius:10px; padding:16px; text-align:center; cursor:pointer; }
+    .quick-upload img.preview-thumb { max-height:100px; margin:8px; border-radius:8px; display:inline-block; }
+
+    /* Tools grid */
+    .tools-wrap { max-width:1100px; margin:0 auto; }
+
+    /* Card header for tools */
+    .tool-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    /* Increased tool name size */
+    .tool-header h5 { font-size:1.35rem; margin:0; font-weight:900; display:flex; align-items:center; gap:10px; }
+    .tool-badge { font-size:.85rem; color:var(--muted); margin-left:auto; }
+
+    /* Improved file input inside each tool */
+    .tool-file { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+    .tool-file input[type="file"] { display:none; }
+    .file-btn { padding:.4rem .7rem; border-radius:.5rem; border:1px dashed rgba(13,110,253,0.12); background:#fafafa; cursor:pointer; display:inline-flex; align-items:center; gap:.5rem; }
+    .thumb-preview { max-height:80px; border-radius:8px; display:inline-block; }
+
+    /* Buttons area - keep download link next to action */
+    .action-group { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; }
+
+    /* download link style */
+    .download-link { padding:.35rem .6rem; background:#198754; color:#fff; border-radius:.5rem; text-decoration:none; font-weight:600; display:inline-flex; gap:6px; align-items:center; }
+
+    /* small muted text */
+    .small-muted{ color:var(--muted); }
+
+    /* tidy spacing inside cards */
+    .card .form-label { margin-bottom:.25rem; font-weight:600; color:#444; }
+    .card .mb-2 { margin-bottom:.6rem !important; }
+
+    /* remove old fixed heights */
+    .card.p-3.tool-card { min-height:0; height:auto; }
+
+    /* responsive */
+    @media (max-width:680px){
+      .header-inner { flex-direction:column; align-items:center; text-align:center; gap:8px; }
+      .brand-row { justify-content:center; }
+      .brand-title{ font-size:1.3rem; }
+      .tool-logo { width:64px; height:64px; }
+      .tool-header h5 { font-size:1.1rem; }
+    }
+
+    /* small svg logo badge next to each tool name */
+    .mini-logo { width:44px; height:44px; border-radius:8px; background:#fff; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(13,110,253,0.06); flex-shrink:0; }
+  </style></head>
+<body>
+  <main class="container"><!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="brand-row">
+      <img class="tool-logo" alt="All Image Tools LJ" src="/All-Image-Tools-LJ/icons/icon-192.png"
+           onerror="this.onerror=null;this.src='/All-Image-Tools-LJ/icons/icon-512.png?v=2'">
+      <div>
+        <div class="brand-title">All Image Tools LJ</div>
+        <div class="brand-sub">Superfast Tools</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="globalOpenBtn" class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-folder2-open"></i> Open</button>
+      <button id="helpBtn" class="btn btn-outline-secondary btn-sm">Help</button>
+    </div>
+  </div>
+</header>
+
+<!-- Quick Upload (replaces old dropzone) -->
+<section class="quick-upload mb-3">
+  <div class="d-flex align-items-center justify-content-between flex-wrap">
+    <div>
+      <h5 style="margin:0 0 .35rem 0;">Quick Upload</h5>
+      <div class="small-muted">Select images here as a quick global fallback. Files added here can be used by each tool.</div>
+    </div>
+    <div>
+      <input id="quickFileInput" type="file" accept="image/*" multiple style="display:none">
+      <div id="quickChooser" class="big-input" role="button" tabindex="0">
+        <i class="bi bi-cloud-arrow-up" style="font-size:1.2rem;color:var(--brand)"></i>
+        <div>Add images (click) or drag & drop here</div>
+      </div>
+    </div>
+  </div>
+  <div id="quickPreview" class="mt-3"></div>
+</section>
+
+<!-- Tools -->
+<section class="tools-wrap">
+  <div class="row g-3">
+
+   <!-- 1) Image Compressor -->
+<div class="col-md-6">
+  <div class="card p-3 tool-card" id="card-compressor">
+    <div class="tool-header d-flex align-items-center gap-2">
+      <div class="mini-logo" aria-hidden>
+        <!-- SVG logo: compressor -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12h6" stroke="#0d6efd" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 6l6 6-6 6" stroke="#6f42c1" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h5 class="mb-0">Image Compressor</h5>
+      <div class="tool-badge ms-auto">Reduce size</div>
+    </div>
+
+    <p class="small-muted mb-2">
+      Adjust quality / max edge / target KB. Processing happens in your browser.
+    </p>
+
+    <!-- File input row -->
+    <div class="tool-file d-flex align-items-center gap-2 mb-2">
+      <label class="file-btn" for="compFileBtn">
+        <i class="bi bi-image"></i> Choose image
+      </label>
+      <input id="compFileBtn" type="file" accept="image/*"
+             class="tool-input d-none" data-tool="compressor">
+      <div id="compPreview" class="ms-2 small-muted"></div>
+      <button id="compClear" class="btn btn-sm btn-outline-secondary ms-auto"
+              style="display:none">Clear</button>
+    </div>
+
+    <!-- Options panel -->
+    <div class="row g-2 mb-2">
+      <div class="col-6">
+        <label class="form-label">
+          Quality (0.1 - 1.0)
+          <small id="compQualityLabel" class="text-primary">0.8</small>
+        </label>
+        <input id="compQuality" type="range"
+               min="0.1" max="1" step="0.01" value="0.8"
+               class="form-range">
+      </div>
+      <div class="col-6">
+        <label class="form-label">Max long-edge (px)</label>
+        <input id="compMaxEdge" type="number"
+               class="form-control form-control-sm"
+               placeholder="e.g. 1600">
+      </div>
+    </div>
+
+    <!-- Extra options: target KB + quick presets -->
+    <div class="row g-2 mb-2">
+      <div class="col-6">
+        <label class="form-label">
+          Target size (KB)
+          <small class="text-muted">(optional)</small>
+        </label>
+        <input id="compTargetKB" type="number"
+               class="form-control form-control-sm"
+               placeholder="e.g. 300">
+      </div>
+      <div class="col-6">
+        <label class="form-label mb-1">Quick quality presets</label>
+        <div class="btn-group w-100 btn-group-sm" role="group">
+          <button type="button" class="btn btn-outline-secondary compPresetBtn"
+                  data-q="0.3">30%</button>
+          <button type="button" class="btn btn-outline-secondary compPresetBtn"
+                  data-q="0.5">50%</button>
+          <button type="button" class="btn btn-outline-secondary compPresetBtn"
+                  data-q="0.7">70%</button>
+          <button type="button" class="btn btn-outline-secondary compPresetBtn"
+                  data-q="0.9">90%</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output options -->
+    <div class="row g-2 mb-2">
+      <div class="col-6">
+        <label class="form-label">Output format</label>
+        <select id="compOutFormat"
+                class="form-select form-select-sm">
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label class="form-label">Keep metadata</label>
+        <select id="compKeepMeta"
+                class="form-select form-select-sm">
+          <option value="no" selected>No</option>
+          <option value="yes">Yes (basic)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-group d-flex align-items-center gap-2 mt-2">
+      <button id="compressBtn" class="btn btn-tool-main">
+        <i class="bi bi-filter-circle"></i> Compress
+      </button>
+      <a id="compDownload" class="btn btn-tool-download"
+         style="display:none">
+        <i class="bi bi-download"></i> Download
+      </a>
+      <span id="compStatus"
+            class="small-muted ms-auto text-muted">Ready</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CSS: colorful buttons etc. ====== -->
+<style>
+  .btn-tool-main {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    padding-inline: 1.1rem;
+  }
+  .btn-tool-main:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+  .btn-tool-download {
+    background: linear-gradient(135deg, #20c997, #0dcaf0);
+    color: #fff !important;
+    border: none;
+    font-weight: 500;
+    padding-inline: 1.1rem;
+    text-decoration: none;
+  }
+  .btn-tool-download:hover {
+    opacity: 0.9;
+    color: #fff !important;
+    text-decoration: none;
+  }
+  .file-btn {
+    cursor: pointer;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px dashed #6c757d;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .file-btn:hover {
+    border-style: solid;
+  }
+  #compPreview img {
+    max-height: 40px;
+    border-radius: 4px;
+  }
+</style>
+
+<!-- ====== JS: compressor logic (no "not defined" error) ====== -->
+<script>
+  (function () {
+    let originalFile = null;
+    let originalImage = null;
+    let downloadUrl = null;
+
+    const fileInput     = document.getElementById('compFileBtn');
+    const previewEl     = document.getElementById('compPreview');
+    const clearBtn      = document.getElementById('compClear');
+    const qualityRange  = document.getElementById('compQuality');
+    const qualityLabel  = document.getElementById('compQualityLabel');
+    const maxEdgeInput  = document.getElementById('compMaxEdge');
+    const targetKBInput = document.getElementById('compTargetKB');
+    const outFormatSel  = document.getElementById('compOutFormat');
+    const compressBtn   = document.getElementById('compressBtn');
+    const downloadLink  = document.getElementById('compDownload');
+    const statusEl      = document.getElementById('compStatus');
+
+    // ---------- helpers ----------
+    function setStatus(msg) {
+      if (statusEl) statusEl.textContent = msg;
+    }
+
+    function resetDownload() {
+      if (downloadUrl) {
+        URL.revokeObjectURL(downloadUrl);
+        downloadUrl = null;
+      }
+      downloadLink.style.display = 'none';
+    }
+
+    function showPreview(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Preview';
+        previewEl.innerHTML = '';
+        previewEl.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+      clearBtn.style.display = 'inline-block';
+    }
+
+    function loadImage(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = new Image();
+          img.onload = function () { resolve(img); };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function drawToCanvas(img, maxEdge) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let w = img.width;
+      let h = img.height;
+
+      if (maxEdge && maxEdge > 0) {
+        const longer = Math.max(w, h);
+        if (longer > maxEdge) {
+          const scale = maxEdge / longer;
+          w = Math.round(w * scale);
+          h = Math.round(h * scale);
+        }
+      }
+
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(img, 0, 0, w, h);
+
+      return canvas;
+    }
+
+    function getMime(format) {
+      if (format === 'png') return 'image/png';
+      return 'image/jpeg';
+    }
+
+    // Simple compress using given quality
+    function compressSimple(img, options) {
+      return new Promise(function (resolve, reject) {
+        try {
+          const canvas = drawToCanvas(img, options.maxEdge);
+          const mime = getMime(options.format);
+          const q = options.quality;
+          canvas.toBlob(function (blob) {
+            if (!blob) {
+              reject(new Error('Compression failed.'));
+              return;
+            }
+            resolve(blob);
+          }, mime, q);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    // Binary search for approx target size (KB)
+    function compressToTargetKB(img, options, targetKB) {
+      return new Promise(function (resolve, reject) {
+        const canvas = drawToCanvas(img, options.maxEdge);
+        const mime = getMime(options.format);
+        let low = 0.1;
+        let high = 1.0;
+        let iteration = 0;
+        const maxIterations = 10;
+        const targetBytes = targetKB * 1024;
+        const tolerance = targetBytes * 0.1; // +/-10%
+
+        function step() {
+          const q = (low + high) / 2;
+          canvas.toBlob(function (blob) {
+            if (!blob) {
+              reject(new Error('Compression failed.'));
+              return;
+            }
+            const size = blob.size;
+            if (Math.abs(size - targetBytes) <= tolerance || iteration >= maxIterations) {
+              resolve(blob); // good enough
+              return;
+            }
+            if (size > targetBytes) {
+              // too big -> reduce quality
+              high = q;
+            } else {
+              // too small -> increase quality
+              low = q;
+            }
+            iteration++;
+            step();
+          }, mime, q);
+        }
+
+        step();
+      });
+    }
+
+    // ---------- Event listeners ----------
+
+    // Quality range label
+    qualityRange.addEventListener('input', function () {
+      qualityLabel.textContent = qualityRange.value;
+    });
+
+    // Quick preset buttons
+    document.querySelectorAll('.compPresetBtn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const q = this.getAttribute('data-q');
+        if (!q) return;
+        qualityRange.value = q;
+        qualityLabel.textContent = q;
+      });
+    });
+
+    // File chosen
+    fileInput.addEventListener('change', async function () {
+      if (!fileInput.files || !fileInput.files[0]) {
+        return;
+      }
+      originalFile = fileInput.files[0];
+      setStatus('Loading image...');
+      resetDownload();
+      showPreview(originalFile);
+
+      try {
+        originalImage = await loadImage(originalFile);
+        const sizeKB = (originalFile.size / 1024).toFixed(1);
+        setStatus('Loaded ' + sizeKB + ' KB');
+      } catch (err) {
+        console.error(err);
+        setStatus('Failed to load image');
+      }
+    });
+
+    // Clear
+    clearBtn.addEventListener('click', function () {
+      originalFile = null;
+      originalImage = null;
+      fileInput.value = '';
+      previewEl.innerHTML = '';
+      clearBtn.style.display = 'none';
+      resetDownload();
+      setStatus('Ready');
+    });
+
+    // Compress
+    compressBtn.addEventListener('click', async function () {
+      if (!originalImage) {
+        setStatus('Please choose an image first.');
+        return;
+      }
+
+      resetDownload();
+      setStatus('Compressing...');
+
+      const quality = parseFloat(qualityRange.value) || 0.8;
+      const maxEdge = parseInt(maxEdgeInput.value, 10) || null;
+      const format = outFormatSel.value || 'jpeg';
+      const targetKB = parseInt(targetKBInput.value, 10) || null;
+
+      const options = { quality, maxEdge, format };
+
+      try {
+        let blob;
+
+        if (targetKB && getMime(format) !== 'image/png') {
+          // Target KB approx (works best with JPEG)
+          blob = await compressToTargetKB(originalImage, options, targetKB);
+        } else {
+          // Simple quality-based compress
+          blob = await compressSimple(originalImage, options);
+        }
+
+        const finalSizeKB = (blob.size / 1024).toFixed(1);
+        setStatus('Compressed: ' + finalSizeKB + ' KB');
+
+        downloadUrl = URL.createObjectURL(blob);
+        downloadLink.href = downloadUrl;
+
+        const ext = format === 'png' ? 'png' : 'jpg';
+        const baseName = (originalFile && originalFile.name)
+          ? originalFile.name.replace(/\.[^.]+$/, '')
+          : 'compressed-image';
+        downloadLink.download = baseName + '-compressed.' + ext;
+
+        downloadLink.style.display = 'inline-block';
+      } catch (err) {
+        console.error(err);
+        setStatus('Error: ' + (err.message || 'Compression failed'));
+      }
+    });
+
+  })();
+        </script>
+    <!-- 2) Resize -->
+    <div class="col-md-6">
+      <div class="card p-3 tool-card" id="card-resize">
+        <div class="tool-header">
+          <div class="mini-logo" aria-hidden>
+            <!-- SVG logo: resize -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3v6h6" stroke="#0d6efd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 21v-6h-6" stroke="#ff6b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h5>Resize</h5>
+          <div class="tool-badge">Change dimensions</div>
+        </div>
+        <p class="small-muted">Preserve aspect ratio or set width/height. Choose interpolation quality for best results.</p>
+
+        <div class="tool-file">
+          <label class="file-btn" for="resizeFileBtn"><i class="bi bi-image"></i> Choose image</label>
+          <input id="resizeFileBtn" type="file" accept="image/*" class="tool-input" data-tool="resize">
+          <div id="resizePreview" class="ms-2"></div>
+          <button id="resizeClear" class="btn btn-sm btn-outline-secondary ms-auto" style="display:none">Clear</button>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col">
+            <label class="form-label">Width (px)</label>
+            <input id="resizeW" type="number" class="form-control form-control-sm" placeholder="e.g. 1200">
+          </div>
+          <div class="col">
+            <label class="form-label">Height (px)</label>
+            <input id="resizeH" type="number" class="form-control form-control-sm" placeholder="e.g. 800">
+          </div>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="keepAspect" checked>
+              <label class="form-check-label small-muted" for="keepAspect">Preserve aspect ratio</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="form-label">Interpolation quality</label>
+            <select id="resizeQuality" class="form-select form-select-sm"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button id="applyResizeBtn" class="btn btn-tool"><i class="bi bi-arrows-angle-contract"></i> Apply</button>
+          <a id="resizeDownload" class="download-link" style="display:none"><i class="bi bi-download"></i> Download</a>
+          <span id="resizeStatus" class="small-muted align-self-center">Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3) Image → PDF (multi-page) -->
+    <div class="col-md-6">
+      <div class="card p-3 tool-card" id="card-pdf">
+        <div class="tool-header">
+          <div class="mini-logo" aria-hidden>
+            <!-- SVG logo: pdf -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#6f42c1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 2v6h6" stroke="#ff6b6b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h5>Image → PDF</h5>
+          <div class="tool-badge">Multiple images</div>
+        </div>
+        <p class="small-muted">Combine images into one PDF. Choose page size & margins.</p>
+
+        <div class="tool-file">
+          <label class="file-btn" for="pdfFileBtn"><i class="bi bi-images"></i> Choose images</label>
+          <input id="pdfFileBtn" type="file" accept="image/*" class="tool-input" data-tool="imgpdf" multiple>
+          <div id="pdfPreview" class="ms-2"></div>
+          <button id="pdfClear" class="btn btn-sm btn-outline-secondary ms-auto" style="display:none">Clear</button>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <label class="form-label">Page size</label>
+            <select id="pdfPageSize" class="form-select form-select-sm"><option value="a4" selected>A4</option><option value="letter">Letter</option></select>
+          </div>
+          <div class="col-6">
+            <label class="form-label">Orientation</label>
+            <select id="pdfOrient" class="form-select form-select-sm"><option value="portrait" selected>Portrait</option><option value="landscape">Landscape</option></select>
+          </div>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <label class="form-label">Margin (pt)</label>
+            <input id="pdfMargin" type="number" class="form-control form-control-sm" value="12">
+          </div>
+          <div class="col-6">
+            <label class="form-label">Fit option</label>
+            <select id="pdfFit" class="form-select form-select-sm"><option value="contain" selected>Contain (preserve ratio)</option><option value="cover">Cover (fill page)</option></select>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button id="imgToPdfBtn" class="btn btn-tool"><i class="bi bi-file-earmark-arrow-down"></i> Create PDF</button>
+          <a id="pdfDownload" class="download-link" style="display:none"><i class="bi bi-download"></i> Download</a>
+          <span id="pdfStatus" class="small-muted align-self-center">Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4) JPG ↔ PNG -->
+    <div class="col-md-6">
+      <div class="card p-3 tool-card" id="card-convert">
+        <div class="tool-header">
+          <div class="mini-logo" aria-hidden>
+            <!-- SVG logo: convert -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7h6v6" stroke="#0d6efd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 17h-6v-6" stroke="#ffb86b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h5>JPG ↔ PNG</h5>
+          <div class="tool-badge">Convert formats</div>
+        </div>
+        <p class="small-muted">Convert between JPG and PNG. Set quality and background for PNG → JPG.</p>
+
+        <div class="tool-file">
+          <label class="file-btn" for="convFileBtn"><i class="bi bi-image"></i> Choose image</label>
+          <input id="convFileBtn" type="file" accept="image/*" class="tool-input" data-tool="jpgpng">
+          <div id="convPreview" class="ms-2"></div>
+          <button id="convClear" class="btn btn-sm btn-outline-secondary ms-auto" style="display:none">Clear</button>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <label class="form-label">PNG → JPG Quality: <span id="convQualityLabel">0.9</span></label>
+            <input id="convQuality" type="range" min="0.1" max="1" step="0.01" value="0.9" class="form-range">
+          </div>
+          <div class="col-6">
+            <label class="form-label">Background (for PNG→JPG)</label>
+            <input id="convBg" type="color" class="form-control form-control-sm" value="#ffffff">
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button id="jpgToPngBtn" class="btn btn-tool">JPG → PNG</button>
+          <button id="pngToJpgBtn" class="btn btn-tool">PNG → JPG</button>
+          <a id="convDownload" class="download-link" style="display:none"><i class="bi bi-download"></i> Download</a>
+          <span id="convStatus" class="small-muted align-self-center">Ready</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="mt-4 mb-5 text-center" style="max-width:1100px;margin:18px auto 0;">
+  <div class="small-muted">All processing occurs in your browser by default. API options are opt-in only.</div>
+</footer>
+
+  </main>  <!-- Libraries -->  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.18/dist/browser-image-compression.js" defer></script>  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" defer></script>  <script>
+  (function(){
+    const $ = (s, ctx=document) => ctx.querySelector(s);
+    const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+    // Global quick upload
+    const quickChooser = $('#quickChooser'), quickFileInput = $('#quickFileInput'), quickPreview = $('#quickPreview');
+    let globalFiles = [];
+
+    quickChooser.addEventListener('click', ()=> quickFileInput.click());
+    quickChooser.addEventListener('dragover', e=>{ e.preventDefault(); quickChooser.style.borderColor='var(--brand)'; });
+    quickChooser.addEventListener('dragleave', ()=>{ quickChooser.style.borderColor=''; });
+    quickChooser.addEventListener('drop', e=>{ e.preventDefault(); quickChooser.style.borderColor=''; handleQuickFiles(Array.from(e.dataTransfer.files)); });
+    quickFileInput.addEventListener('change', e=> handleQuickFiles(Array.from(e.target.files)));
+
+    function handleQuickFiles(files){
+      const imgs = files.filter(f=> f.type && f.type.startsWith('image/'));
+      if(!imgs.length){ alert('Please select images'); return; }
+      imgs.forEach(f=> {
+        if(!globalFiles.some(g=> g.name===f.name && g.size===f.size)) globalFiles.push(f);
+      });
+      renderQuickPreview();
+    }
+    function renderQuickPreview(){
+      quickPreview.innerHTML = '';
+      globalFiles.slice(0,12).forEach(f=>{
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(f); img.onload = ()=> URL.revokeObjectURL(img.src);
+        img.className = 'preview-thumb';
+        quickPreview.appendChild(img);
+      });
+    }
+
+    // Per-tool file handling & previews (improved inputs)
+    const perTool = {};
+    $$('.tool-input').forEach(inp => {
+      const tool = inp.dataset.tool;
+      const clearBtn = inp.id === 'compFileBtn' ? $('#compClear') :
+                       inp.id === 'resizeFileBtn' ? $('#resizeClear') :
+                       inp.id === 'pdfFileBtn' ? $('#pdfClear') :
+                       inp.id === 'convFileBtn' ? $('#convClear') : null;
+      const preview = inp.id === 'compFileBtn' ? $('#compPreview') :
+                      inp.id === 'resizeFileBtn' ? $('#resizePreview') :
+                      inp.id === 'pdfFileBtn' ? $('#pdfPreview') :
+                      inp.id === 'convFileBtn' ? $('#convPreview') : null;
+
+      // clicking the styled label will open the hidden input due to for="" mapping; handle change:
+      inp.addEventListener('change', e=>{
+        const files = inp.files ? Array.from(inp.files) : [];
+        perTool[tool] = files.length === 1 ? files[0] : files;
+        // render preview
+        if(!preview) return;
+        preview.innerHTML = '';
+        const filesArr = Array.isArray(perTool[tool]) ? perTool[tool] : (perTool[tool] ? [perTool[tool]] : []);
+        if(!filesArr.length){
+          preview.innerHTML = '<div class="small-muted">No file selected</div>';
+          clearBtn && (clearBtn.style.display='none');
+        } else {
+          filesArr.slice(0,3).forEach(f=>{
+            if(!f.type.startsWith('image/')) return;
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(f); img.onload = ()=> URL.revokeObjectURL(img.src);
+            img.className = 'thumb-preview';
+            preview.appendChild(img);
+          });
+          clearBtn && (clearBtn.style.display='inline-block');
+        }
+      });
+
+      // clear button
+      if(clearBtn){
+        clearBtn.addEventListener('click', ()=>{
+          inp.value = ''; perTool[tool] = null;
+          if($('#' + (inp.id==='compFileBtn' ? 'compPreview' : inp.id==='resizeFileBtn' ? 'resizePreview' : inp.id==='pdfFileBtn' ? 'pdfPreview' : 'convPreview'))) {
+            const p = inp.id==='compFileBtn' ? $('#compPreview') : inp.id==='resizeFileBtn' ? $('#resizePreview') : inp.id==='pdfFileBtn' ? $('#pdfPreview') : $('#convPreview');
+            p.innerHTML = '<div class="small-muted">No file selected</div>';
+          }
+          clearBtn.style.display='none';
+        });
+      }
+    });
+
+    // Helper: fallback file for a tool -> prefer perTool, else first global file
+    function fileFor(tool){
+      if(perTool[tool]) return perTool[tool];
+      return globalFiles.length ? globalFiles[0] : null;
+    }
+
+    // Helper to create download link from blob
+    function createDownloadLink(aEl, blob, filename){
+      const url = URL.createObjectURL(blob);
+      aEl.href = url;
+      aEl.download = filename;
+      aEl.style.display = 'inline-flex';
+      // revoke after some time when user likely downloaded
+      setTimeout(()=> URL.revokeObjectURL(url), 30000);
+    }
+
+    // Utility: convert any image Blob to PNG using canvas (returns Blob)
+    async function blobToImageBlob(blob, type='image/png', quality=0.92, bgColor=null, smoothing='high'){
+      try{
+        const bitmap = await createImageBitmap(blob);
+        const canvas = document.createElement('canvas'); canvas.width = bitmap.width; canvas.height = bitmap.height;
+        const ctx = canvas.getContext('2d');
+        if(bgColor){ ctx.fillStyle = bgColor; ctx.fillRect(0,0,canvas.width,canvas.height); }
+        // smoothing
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = smoothing; // 'low'|'medium'|'high'
+        ctx.drawImage(bitmap,0,0);
+        return await new Promise(res=> canvas.toBlob(res, type, quality));
+      }catch(e){ console.error('blobToImageBlob err', e); throw e; }
+    }
+
+    // Save helper fallback (not used for primary flow)
+    function saveBlob(blob, filename){
+      try{
+        if(window.saveAs) { window.saveAs(blob, filename); return; }
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=> URL.revokeObjectURL(a.href), 1500);
+      }catch(e){ console.error('save failed', e); alert('Save failed'); }
+    }
+
+    // ---------- COMPRESSOR ----------
+    const compQuality = $('#compQuality'), compQualityLabel = $('#compQualityLabel');
+    compQuality && compQuality.addEventListener('input', ()=> compQualityLabel.textContent = compQuality.value);
+
+    $('#compressBtn').addEventListener('click', async ()=>{
+      const f = fileFor('compressor');
+      if(!f) return alert('Select an image (compressor).');
+      const maxEdge = parseInt($('#compMaxEdge').value) || undefined;
+      const startQuality = parseFloat(compQuality.value || 0.8);
+      const outFormat = $('#compOutFormat').value || 'jpeg';
+      const smoothing = $('#resizeQuality') ? $('#resizeQuality').value : 'medium';
+      $('#compStatus').textContent = 'Compressing...';
+      try{
+        // use browser-image-compression first for lossy compression
+        const blob = await imageCompression(f, { initialQuality: startQuality, useWebWorker:true, maxWidthOrHeight: maxEdge });
+        let outBlob = blob;
+        if(outFormat === 'png'){
+          // convert to PNG via canvas, preserve smoothing from resizeQuality
+          outBlob = await blobToImageBlob(blob, 'image/png', 0.92, null, smoothing);
+        }
+        const filename = (f.name.replace(/\.[^/.]+$/, '')) + '-compressed.' + (outFormat === 'png' ? 'png' : 'jpg');
+        createDownloadLink($('#compDownload'), outBlob, filename);
+        $('#compStatus').textContent = 'Done';
+      }catch(err){
+        console.error(err); alert('Compression failed: '+(err.message||err));
+        $('#compStatus').textContent = 'Error';
+      }
+    });
+
+    // ---------- RESIZE ----------
+    $('#applyResizeBtn').addEventListener('click', async ()=>{
+      const f = fileFor('resize');
+      if(!f) return alert('Select image for resize.');
+      const w = parseInt($('#resizeW').value) || null;
+      const h = parseInt($('#resizeH').value) || null;
+      const keep = $('#keepAspect').checked;
+      const quality = $('#resizeQuality').value || 'medium'; // low|medium|high maps to imageSmoothingQuality
+      // no rotate UI — rot = 0
+      const rot = 0;
+      if(!w && !h && rot===0) return alert('Set width or height.');
+      $('#resizeStatus').textContent = 'Processing...';
+      try{
+        const dataUrl = await new Promise((res, rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(f); });
+        const img = await new Promise((res, rej)=> { const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=dataUrl; });
+
+        let newW = img.width, newH = img.height;
+        if(w && h){ newW = w; newH = h; }
+        else if(w){ newW = w; newH = keep ? Math.round(img.height*(w/img.width)) : img.height; }
+        else if(h){ newH = h; newW = keep ? Math.round(img.width*(h/img.height)) : img.width; }
+
+        // canvas
+        const canvas = document.createElement('canvas');
+        canvas.width = newW; canvas.height = newH;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = quality; // 'low'|'medium'|'high'
+        ctx.drawImage(img, 0, 0, newW, newH);
+
+        canvas.toBlob(blob=>{
+          const filename = (f.name.replace(/\.[^/.]+$/, '')) + `-resized-${newW}x${newH}.jpg`;
+          createDownloadLink($('#resizeDownload'), blob, filename);
+          $('#resizeStatus').textContent = 'Done';
+        }, 'image/jpeg', 0.92);
+      }catch(e){ console.error(e); alert('Resize failed'); $('#resizeStatus').textContent='Error'; }
+    });
+
+    // ---------- IMAGE -> PDF ----------
+    $('#imgToPdfBtn').addEventListener('click', async ()=>{
+      const files = perTool['imgpdf'] ? (Array.isArray(perTool['imgpdf']) ? perTool['imgpdf'] : [perTool['imgpdf']]) : globalFiles;
+      if(!files || files.length===0) return alert('Select images for PDF.');
+      $('#pdfStatus').textContent = 'Creating PDF...';
+      try{
+        const { jsPDF } = window.jspdf;
+        const orient = $('#pdfOrient').value || 'portrait';
+        const pageSizeInput = $('#pdfPageSize').value || 'a4';
+        const pageFormat = pageSizeInput === 'letter' ? 'letter' : 'a4';
+        const margin = parseFloat($('#pdfMargin').value) || 12;
+        const fit = $('#pdfFit').value || 'contain';
+        const pdf = new jsPDF({ unit:'pt', format:pageFormat, orientation:orient });
+        for(let i=0;i<files.length;i++){
+          const f = files[i];
+          const dataUrl = await new Promise((res, rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(f); });
+          const img = await new Promise((res, rej)=> { const ii=new Image(); ii.onload=()=>res(ii); ii.onerror=rej; ii.src=dataUrl; });
+          const pageW = pdf.internal.pageSize.getWidth(), pageH = pdf.internal.pageSize.getHeight();
+
+          let imgW = img.width, imgH = img.height;
+          const ratio = Math.min((pageW - 2*margin)/img.width, (pageH - 2*margin)/img.height);
+          if(fit === 'contain'){
+            imgW = img.width * ratio; imgH = img.height * ratio;
+          } else {
+            // cover: fill page, crop with center
+            const ratioCover = Math.max((pageW - 2*margin)/img.width, (pageH - 2*margin)/img.height);
+            imgW = img.width * ratioCover; imgH = img.height * ratioCover;
+          }
+
+          pdf.addImage(dataUrl, f.type.includes('png') ? 'PNG' : 'JPEG', (pageW - imgW)/2, (pageH - imgH)/2, imgW, imgH);
+          if(i < files.length-1) pdf.addPage();
+        }
+        // output as blob and create download link
+        const blob = pdf.output('blob');
+        createDownloadLink($('#pdfDownload'), blob, 'images.pdf');
+        $('#pdfStatus').textContent = 'Done';
+      }catch(e){ console.error(e); alert('PDF creation failed'); $('#pdfStatus').textContent='Error'; }
+    });
+
+    // ---------- JPG -> PNG ----------
+    $('#jpgToPngBtn').addEventListener('click', async ()=>{
+      const f = fileFor('jpgpng');
+      if(!f) return alert('Select image (JPG → PNG).');
+      $('#convStatus').textContent = 'Converting...';
+      try{
+        const dataUrl = await new Promise((res, rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(f); });
+        const img = await new Promise((res, rej)=> { const ii=new Image(); ii.onload=()=>res(ii); ii.onerror=rej; ii.src=dataUrl; });
+        const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img,0,0);
+        canvas.toBlob(blob=> {
+          createDownloadLink($('#convDownload'), blob, (f.name.replace(/\.[^/.]+$/, '')) + '.png');
+          $('#convStatus').textContent = 'Done';
+        }, 'image/png');
+      }catch(e){ console.error(e); alert('Convert failed'); $('#convStatus').textContent='Error'; }
+    });
+
+    // ---------- PNG -> JPG ----------
+    $('#pngToJpgBtn').addEventListener('click', async ()=>{
+      const f = fileFor('jpgpng');
+      if(!f) return alert('Select image (PNG → JPG).');
+      $('#convStatus').textContent = 'Converting...';
+      try{
+        const q = parseFloat($('#convQuality').value || 0.9);
+        const bg = $('#convBg').value || '#ffffff';
+
+        const dataUrl = await new Promise((res, rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(f); });
+        const img = await new Promise((res, rej)=> { const ii=new Image(); ii.onload=()=>res(ii); ii.onerror=rej; ii.src=dataUrl; });
+        const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height;
+        const ctx = canvas.getContext('2d'); ctx.fillStyle = bg; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0);
+        canvas.toBlob(blob => {
+          createDownloadLink($('#convDownload'), blob, (f.name.replace(/\.[^/.]+$/, '')) + '.jpg');
+          $('#convStatus').textContent = 'Done';
+        }, 'image/jpeg', q);
+      }catch(e){ console.error(e); alert('Convert failed'); $('#convStatus').textContent='Error'; }
+    });
+
+    // Keyboard shortcut to open quick uploader
+    document.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'o'){ e.preventDefault(); quickFileInput.click(); }
+    });
+
+    // Initialize previews text
+    ['compPreview','resizePreview','pdfPreview','convPreview'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.innerHTML = '<div class="small-muted">No file selected</div>';
+    });
+
+  })();
+  </script>  <script>
+  // small title-typing effect (optional)
+  (function(){
+    const finalTitle = "All Image Tools LJ — Superfast Tools";
+    let idx = 0;
+    function type(){ if(idx<=finalTitle.length){ document.title = finalTitle.substring(0, idx); idx++; setTimeout(type, 50); } }
+    window.addEventListener('load', ()=>{ document.title=''; setTimeout(type, 200); });
+  })();
+  </script>
+  <div class="about-creator">
+  <img src="icons/Laxman.jpg" alt="Creator Photo"
+     style="width:80px; height:80px; border-radius:50%; object-fit:cover;">
+  <p>Created by LJ Pareek 😎 </p>
+  </div>
+</body>
+</html>

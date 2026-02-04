@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yuhazuha0-sudo.github.io/all-image-tools-LJ/sitemap.xml
