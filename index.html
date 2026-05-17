@@ -101,6 +101,50 @@ header p{
   object-fit:cover;
   box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
+/* --- Video Playlist Converter Tool Styles --- */
+.v-converter-box { 
+    background: #1e1e1e; 
+    padding: 25px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    text-align: center; 
+    max-width: 450px; 
+    margin: 20px auto; 
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+.v-converter-box h3 { font-size: 20px; margin-top: 0; color: #4CAF50; }
+.v-converter-box p { color: #aaa; font-size: 13px; margin-bottom: 20px; }
+.v-file-label { 
+    display: block; 
+    background: #2b2b2b; 
+    border: 2px dashed #4CAF50; 
+    padding: 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    font-weight: bold; 
+}
+.v-file-label:hover { background: #4CAF50; color: white; }
+.v-converter-box input[type="file"] { display: none; }
+.v-download-btn { 
+    background: #4CAF50; 
+    color: white; 
+    border: none; 
+    padding: 12px 20px; 
+    font-size: 15px; 
+    font-weight: bold; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    width: 100%; 
+    margin-top: 15px; 
+    display: none; 
+    transition: 0.3s; 
+}
+.v-download-btn:hover { background: #45a049; }
+.v-status { margin-top: 10px; font-size: 13px; color: #888; }
+  
+                              
 </style>
 </head>
 <body>
