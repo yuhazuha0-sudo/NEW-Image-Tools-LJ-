@@ -993,5 +993,89 @@ function pngToJpg(){
      style="width:80px; height:80px; border-radius:50%; object-fit:cover;">
   <p>Created by LJ Pareek 😎 </p>
   </div>
+              <script>
+(function() {
+    const fileInput = document.getElementById('vTxtFile');
+    const fileLabel = document.getElementById('vFileLabel');
+    const convertBtn = document.getElementById('vConvertBtn');
+    const statusMsg = document.getElementById('vStatusMsg');
+    let fileContent = "";
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            fileLabel.textContent = `चुनी गई फ़ाइल: ${file.name}`;
+            fileLabel.style.background = "#2e7d32";
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fileContent = e.target.result;
+                convertBtn.style.display = "block";
+                statusMsg.textContent = "फ़ाइल तैयार है! नीचे बटन पर क्लिक करें।";
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    convertBtn.addEventListener('click', function() {
+        if (!fileContent.trim()) return;
+
+        const links = fileContent.split(/\r?\n/).map(link => link.trim()).filter(link => link.length > 0);
+        if (links.length === 0) {
+            alert("फ़ाइल में कोई लिंक नहीं मिला!");
+            return;
+        }
+
+        const jsLinksArray = links.map(link => `    "${link}"`).join(",\n");
+
+        const htmlTemplate = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Playlist Player</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: black; }
+        video { width: 100%; height: 100%; object-fit: contain; }
+    </style>
+</head>
+<body>
+    <video id="myPlayer" autoplay muted controls playsinline></video>
+    <script>
+        var links = [
+${jsLinksArray}
+        ];
+        var currentVideo = 0;
+        var player = document.getElementById('myPlayer');
+        
+        function playVideo(index) {
+            if(index < links.length) {
+                player.src = links[index];
+                player.play().catch(e => console.log("Autoplay blocked."));
+            }
+        }
+        
+        player.addEventListener('ended', function() {
+            currentVideo++;
+            if(currentVideo < links.length) { playVideo(currentVideo); }
+        });
+        
+        playVideo(currentVideo);
+    <\/script>
+</body>
+</html>`;
+
+        const blob = new Blob([htmlTemplate], { type: "text/html" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "autoplay_playlist.html";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        statusMsg.textContent = "🎉 डाउनलोड सफल रहा!";
+    });
+})();
+  </script>
+              
 </body>
 </html>
